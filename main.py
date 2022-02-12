@@ -46,6 +46,7 @@ class MyApp(App):
             gui_elements.append(label)
 
             text_input = gui.TextInput()
+            text_input.attributes["type"] = "number"
             text_input.set_text("0")
             text_input.onchange.connect(self.update_playlist_ratio)
             self.input_map[text_input] = playlist
@@ -66,6 +67,10 @@ class MyApp(App):
                 self.add_song()
             if percent_complete < .85:
                 self.added_song = False
+        now_playing = self.sp.currently_playing()
+        songid = now_playing['item']['id']
+        if songid not in self.played_songs:
+            self.played_songs.append(songid)
 
     def update_playlist_ratio(self, widget, new_value, ):
         for textInput in self.input_map.keys():
@@ -76,7 +81,6 @@ class MyApp(App):
             except ValueError:
                 return
             self.playlist_ratios[playlist] = val
-        print("updated playlist ratio")
 
     def add_song(self):
         possible_playlists = []
@@ -96,4 +100,4 @@ class MyApp(App):
 
 
 # starts the web server
-start(MyApp)
+start(MyApp, update_interval=.5)
