@@ -96,4 +96,4 @@ class MyApp(App):
 
 
 # starts the web server
-start(MyApp)
+start(MyApp, address='192.168.0.2', port=8081)
