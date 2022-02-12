@@ -81,6 +81,7 @@ class MyApp(App):
             except ValueError:
                 return
             self.playlist_ratios[playlist] = val
+        print("updated playlist ratio")
 
     def add_song(self):
         possible_playlists = []
@@ -100,4 +101,4 @@ class MyApp(App):
 
 
 # starts the web server
-start(MyApp, update_interval=.5)
+start(MyApp, update_interval=.5, address='192.168.0.2', port=8081)
